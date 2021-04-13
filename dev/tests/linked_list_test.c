@@ -33,15 +33,7 @@ int main() {
 	printf("\n");
 
 	printf("Deleting 2 node: ");
-	{
-		node_t* searcher = list_head;
-		while (searcher != NULL && searcher->next != NULL)
-		{
-			if (searcher->next->value == 2)
-				remove_next(searcher);
-			searcher = searcher->next;
-		}
-	}
+	/* TODO */
 	printlist(list_head);
 	printf("\n");
 	printf("\n");

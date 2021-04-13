@@ -29,7 +29,9 @@ void init_hashmap(hashmap_t* map, size_t reserve);
 void cleanup_map(hashmap_t* map);
 void rehash(hashmap_t* map);
 //float calc_load(const hashmap_t* map);
-void add_element(hashmap_t* map, const char* key, VALUE_TYPE value);
-node_t* lookup(const hashmap_t* map, const char* key, VALUE_TYPE value);
+void save_data(hashmap_t* map, const char* key, VALUE_TYPE value);
+void rm_entry(hashmap_t* map, const char* key, VALUE_TYPE value);
+VALUE_TYPE lookup(const hashmap_t* map, const char* key);
+//void print_map(const hashmap_t* map);
 
 #endif

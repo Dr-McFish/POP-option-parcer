@@ -24,11 +24,14 @@ node_t* new_node(NODE_DATA value) {
 	rt->value = value;
 	return rt;
 }
-node_t* find_node(node_t* haystack, NODE_DATA needle, is_eq_data_f is_eq){
+node_t** find_node(node_t* haystack, NODE_DATA needle, is_eq_data_f is_eq) {
+	node_t** metaptr;
+	
 	while (haystack != NULL)
 	{
 		if (is_eq(haystack->value, needle))
-			return haystack;
+			return metaptr;
+		metaptr = &haystack->next;
 		haystack = haystack->next;
 	}
 	return NULL;
@@ -41,11 +44,14 @@ node_t* new_node(NODE_DATA* value) {
 	rt->value = *value;
 	return rt;
 }
-node_t* find_node(node_t* haystack, NODE_DATA* needle, is_eq_data_f is_eq) {
+node_t** find_node(node_t* haystack, NODE_DATA* needle, is_eq_data_f is_eq) {
+	node_t** metaptr;
+
 	while (haystack != NULL)
 	{
 		if (is_eq(&(haystack->value), needle))
-			return haystack;
+			return metaptr;
+		metaptr = &haystack->next;
 		haystack = haystack->next;
 	}
 	return NULL;
@@ -58,11 +64,11 @@ node_t* inject_node(node_t** old_node, node_t* new_node) {
 	new_node->next = temp_ptr;
 	return new_node;
 }
-void remove_next(node_t* pervius){
-	if (pervius == NULL || pervius->next == NULL) return;
-	node_t* temp_ptr = pervius->next->next;
-	free(pervius->next);
-	pervius->next = temp_ptr;
+void rm_node(node_t** ptr){
+	if (ptr == NULL || *ptr == NULL) return;
+	node_t* temp_ptr = (*ptr)->next;
+	free((*ptr)->next);
+	(*ptr) = temp_ptr;
 }
 void nuke_tail(node_t** head) {
 	node_t* temp_ptr = *head;
