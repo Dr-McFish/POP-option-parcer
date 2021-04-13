@@ -6,12 +6,25 @@
 #include "primes.h"
 #include "eq_str.h"
 
-void set_keyvalue(key_value_t* pair, const char* key, VALUE_TYPE value){
+
+void set_kv_pair(key_value_t* pair, const char* key, VALUE_TYPE value){
 	pair->key = key;
 	pair->value = value;
 }
-bool compare_keys(key_value_t* a, key_value_t* b){
-	return(eq_str(a->key, b->value));
+bool compare_keys(const key_value_t* a, const key_value_t* b){
+	return(eq_str(a->key, b->key));
+}
+void print_kv_pair(const key_value_t* pair)
+{
+	printf("[k:%s v: %I64u]", pair->key, pair->value);
+}
+void printlist(node_t* head){
+	if(head == NULL){
+		printf("NULL");
+		return;
+	}
+	print_kv_pair(&head->value);
+	printlist(head->next);
 }
 
 #define PRIME_NUM_A 17
@@ -61,22 +74,23 @@ float calc_load(const hashmap_t* map){
 	return ((float)map->num_of_items / (float)map->list_len);
 }
 
-node_t* _lookup_adr(const hashmap_t* map, const char* key)
+node_t** _lookup_adr(const hashmap_t* map, const char* key)
 {
 	key_value_t kv_pair; kv_pair.key = key;
-	return(*find_node(map->list[strhash(key, map->list_len)], &kv_pair, &compare_keys));
+	return(find_node(map->list[strhash(key, map->list_len)], &kv_pair, &compare_keys));
 }
 VALUE_TYPE lookup(const hashmap_t* map, const char* key) {
-	return (_lookup_adr(map, key)->value.value);
+	return ((*_lookup_adr(map, key))->value.value);
 }
 
 void save_data(hashmap_t* map, const char* key, VALUE_TYPE new_val)
 {
 	/* check load, if load is too high, rehash TODO [ ] */
-	node_t* existing_entry = _lookup_adr(map, key);
+	node_t* existing_entry = *_lookup_adr(map, key);
 	if (existing_entry == NULL) {
 		/* create new entry DONE [x]*/
-		inject_node(map->list[strhash(key, map->list_len)], new_node(new_val));
+		key_value_t new_kv_pair; set_kv_pair(&new_kv_pair, key, new_val);
+		inject_node(&map->list[strhash(key, map->list_len)], new_node(&new_kv_pair));
 		map->num_of_items++;
 	} else {
 		/* replace existing contents DONE [x] */
@@ -84,12 +98,22 @@ void save_data(hashmap_t* map, const char* key, VALUE_TYPE new_val)
 	}
 }
 
-void rm_entry(hashmap_t* map, const char* key, VALUE_TYPE value){
-	node_t* entry_to_del = _lookup_adr(map, key);
+void rm_entry(hashmap_t* map, const char* key){
+	node_t** entry_to_del = _lookup_adr(map, key);
 	if(entry_to_del == NULL) return;
 	else {
-		rm_node(&entry_to_del);
+		rm_node(entry_to_del);
 		map->list_len--;
 		/* check if load is very very low, rehash to save memory TODO [ ] */
 	}
 }
+
+void print_map(const hashmap_t* map)
+{
+	printf("len: %I64d, No of items %I64d\n", map->list_len, map->num_of_items);
+	for (size_t i = 0; i < map->list_len; i++) {
+		printf("o -> ");
+		printlist(map->list[i]);
+		printf("\n");
+	}
+}`

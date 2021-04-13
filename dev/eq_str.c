@@ -1,6 +1,6 @@
 #include <stdbool.h>
 
-bool eq_str(char *s1, char *s2)
+bool eq_str(const char *s1, const char *s2)
 {
 	int i;
 
