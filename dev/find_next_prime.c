@@ -1,16 +1,16 @@
 #include <stdint.h>
+#include <stdbool.h>
 
-uint64_t sqrt_aprox(uint64_t nb)
+int sqrt_aprox(int nb)
 {
-	uint64_t odd;
-	uint64_t sqrt;
+	int odd;
+	int sqrt;
 
 	odd = 1;
 	sqrt = 0;
 	if (nb <= 0)
 		return (0);
-	while (nb > 0)
-	{
+	while (nb > 0) {
 		nb = nb - odd;
 		odd += 2;
 		sqrt++;
@@ -18,27 +18,23 @@ uint64_t sqrt_aprox(uint64_t nb)
 	return (sqrt);
 }
 
-uint64_t is_prime(uint64_t nb)
+bool is_prime(int nb)
 {
-	uint64_t i;
-	uint64_t upper_bound;
-
-	i = 2;
-	upper_bound = sqrt_aprox(nb);
 	if (nb < 2)
-		return (0);
+		return (false);
 	else if (nb == 2)
-		return (1);
-	while (i <= upper_bound)
-	{
+		return (true);
+	int upper_bound = sqrt_aprox(nb);
+	int i = 2;
+	while (i <= upper_bound) {
 		if ((nb % i) == 0)
-			return (0);
+			return (false);
 		i++;
 	}
-	return (1);
+	return (true);
 }
 
-uint64_t next_prime(uint64_t nb)
+int next_prime(int nb)
 {
 	if (is_prime(nb))
 		return (nb);

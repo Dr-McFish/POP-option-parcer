@@ -21,9 +21,13 @@ clean:
 	rm -rf *.o
 	rm -f *.exe
 
-test_hmap: hashmap.o tests/hashmap_test.c
+test_hmap: hashmap.o tests/hashmap_test.c ${LIB_OUT}
 	${CC} ${CFLAGS} tests/hashmap_test.c hashmap.o -o test_hashmap.exe -L ./build/lib/ -lpop
 	./test_hashmap.exe
+
+test_prime: find_next_prime.o tests/test_prime.c ${LIB_OUT}
+	${CC} ${CFLAGS} tests/test_prime.c -o test_prime.exe -L ./build/lib/ -lpop
+	./test_prime.exe
 
 ./build/include/${LIB_HEADER}:
 	cp ./include/${LIB_HEADER} ./build/include

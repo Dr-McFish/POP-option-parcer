@@ -23,15 +23,24 @@ node_t* new_node(NODE_DATA* value) {
 	rt->value = *value;
 	return rt;
 }
-node_t** find_node(node_t* haystack, NODE_DATA* needle, is_eq_data_f is_eq) {
-	node_t** metaptr;
+node_t* find_node(node_t* haystack, NODE_DATA* needle, is_eq_data_f is_eq) {
+	while (haystack != NULL)
+	{
+		if (is_eq(&haystack->value, needle))
+			return haystack;
+		haystack = haystack->next;
+	}
+	return NULL;
+}
+node_t** find_node_meteptr(node_t** haystack, NODE_DATA* needle, is_eq_data_f is_eq) {
+	node_t** metaptr = haystack;
 
 	while (haystack != NULL)
 	{
-		if (is_eq(&(haystack->value), needle))
+		if (is_eq(&((*haystack)->value), needle))
 			return metaptr;
-		metaptr = &haystack->next;
-		haystack = haystack->next;
+		metaptr = &((*haystack)->next);
+		haystack = &((*haystack)->next);
 	}
 	return NULL;
 }
@@ -45,7 +54,7 @@ node_t* inject_node(node_t** old_node, node_t* new_node) {
 void rm_node(node_t** ptr){
 	if (ptr == NULL || *ptr == NULL) return;
 	node_t* temp_ptr = (*ptr)->next;
-	free((*ptr)->next);
+	free(*ptr);
 	(*ptr) = temp_ptr;
 }
 void nuke_tail(node_t** head) {
@@ -59,4 +68,14 @@ void nuke_tail(node_t** head) {
 		temp_ptr = temp_ptr2;
 	}
 	(*head) = NULL;
+}
+
+void printlist(node_t* head){
+	if(head == NULL){
+		printf("NULL");
+		return;
+	}
+	print_kv_pair(&head->value);
+	printf(" -> ");
+	printlist(head->next);
 }
