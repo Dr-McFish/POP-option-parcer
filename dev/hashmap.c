@@ -20,15 +20,16 @@ void print_kv_pair(const key_value_t* pair)
 	printf("[\"%s\" : %I64u]", pair->key, pair->value);
 }
 
-#define PRIME_NUM 17
+#define PRIME_NUM_A 4297
+#define PRIME_NUM_B 5039
+#define PRIME_NUM_C 3709
 uint64_t strhash_ben_awad(const char* string, uint64_t upper_bound)
 {
-	uint64_t hash = PRIME_NUM;
-	uint64_t bigprime = next_prime(upper_bound * 21);
+	uint64_t hash = PRIME_NUM_A;
 	int i = 0;
 
 	while(string[i] != '\0'){
-		hash = (bigprime * (hash + i) * string[i]) % upper_bound;
+		hash = (PRIME_NUM_B * (hash + PRIME_NUM_C) * string[i]) % upper_bound;
 		i++;
 	}
 	return(hash);
@@ -81,56 +82,72 @@ const VALUE_TYPE* lookup(const hashmap_t* map, const char* key){
 		return (&rt->value.value);
 	else
 		return NULL;
-	/*
-	node_t* haystack = map->list[strhash(key, map->list_len)];
-	key_value_t needle; needle.key = key;
-	if (haystack) {
-		return &(haystack->value.value);
-	} else
-		return NULL; */
 }
 
 void add_hm(hashmap_t* map, const char* key, VALUE_TYPE new_val)
 {
-	/* check load, if load is too high, rehash TODO [ ] */
 	key_value_t kv; kv.key = key;
 	node_t* existing_entry = find_node(map->list[strhash(key, map->list_len)], &kv, &compare_keys);
 	if (existing_entry == NULL) {
-		/* create new entry DONE [x]*/
 		kv.value = new_val;
 		inject_node(&map->list[strhash(key, map->list_len)], new_node(&kv));
 		map->num_of_items++;
 	} else {
-		/* replace existing contents DONE [x] */
 		existing_entry->value.value = new_val;
 	}
 }
+void add_entry(hashmap_t* map, const char* key, VALUE_TYPE value)
+{
+	rehash(map);
+	add_hm(map, key, value);
+}
 
 void rm_entry(hashmap_t* map, const char* key){
-	node_t** entry_to_del = _lookup_adr(map, key);
+	node_t** entry_to_del = (map->list + strhash(key, map->list_len));
 	if(entry_to_del == NULL) return;
 	else {
 		rm_node(entry_to_del);
 		map->list_len--;
-		/* check if load is very very low, rehash to save memory TODO [ ] */
+		/* check if load is very very low, rehash to save memory DONE [x] */
+		rehash(map);
 	}
 }
 
-float calc_load(const hashmap_t* map){
-	return ((float)map->num_of_items / (float)map->list_len);
+double calc_load(const hashmap_t* map){
+	return (((double)map->num_of_items + 1.0) / ((double)map->list_len));
 }
 
-#define MIN_LOAD 0.001f
-#define MAX_LOAD 0.8f
-bool elegible_for_rehash(const hashmap_t* map)
+#define MIN_LOAD 0.00125
+#define MAX_LOAD 0.8
+void rehash(hashmap_t* map)
 {
-	float load = calc_load(map);
-	return(load > MAX_LOAD || load < MIN_LOAD);
+	size_t new_size;
+	double load = calc_load(map);
+
+	if (load > MAX_LOAD) {
+		new_size = map->list_len * 2;
+	} else if (load < MIN_LOAD) {
+		new_size = map->list_len / 2;
+	} else
+		return;
+	printf("Exeded load: %f\n", load);
+	hashmap_t new_map;
+	init_hashmap(&new_map, new_size);
+	if (new_map.list == NULL) return;
+	for (size_t i = 0; i < map->list_len; i++) {
+		node_t* traverce = map->list[i];
+		while (traverce != NULL) {
+			add_hm(&new_map, traverce->value.key, traverce->value.value);
+			traverce = traverce->next;
+		}
+	}
+	cleanup_map(map);
+	*map = new_map;
 }
 
 void print_map(const hashmap_t* map)
 {
-	printf("len: %I64d, No of items %I64d\n", map->list_len, map->num_of_items);
+	printf("len: %I64d, No of items %I64d, Load: %f \n", map->list_len, map->num_of_items, calc_load(map));
 	for (size_t i = 0; i < map->list_len; i++) {
 		printf("o -> ");
 		printlist(map->list[i]);

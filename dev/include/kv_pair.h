@@ -2,6 +2,7 @@
 # define KV_PAIR_H
 
 #include <stdint.h>
+#include "generic_option.h"
 
 typedef int64_t VALUE_TYPE;
 typedef struct	key_value_pair
