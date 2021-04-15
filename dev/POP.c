@@ -2,8 +2,8 @@
 #include "options.h"
 #include "stdlib.h"
 
-#include "stdio.h"
-void log_f(const char* str) {	printf("%s\n", str); }
+//#include "stdio.h"
+//void log_f(const char* str) {	printf("%s\n", str); }
 
 POP_options_t* g_POP_options;
 int		g_POPargc;
@@ -59,16 +59,11 @@ void POP_new_bool_opt(bool* output_target, char short_name, char* long_name)
 		template.opt_ptr = output_target;
 		template.type = BOOL_OPT;
 		template.was_used = false;
-	log_f("4");
 	if (letter_to_index(short_name) != -1){
-		log_f("5a");
-		printf("h:%d\n", letter_to_index(short_name));
 		g_POP_options->short_names[letter_to_index(short_name)] = template;
-		log_f("6a");
 	}if (long_name){
-		log_f("5b");
 		add_entry(&g_POP_options->long_names, long_name, template);
-		log_f("6b");}
+	}
 }
 
 

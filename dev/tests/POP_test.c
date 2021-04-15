@@ -1,19 +1,15 @@
 #include "POP.h"
 #include <stdio.h>
 
-void log_f(const char* str);
+//void log_f(const char* str);
 
 int main(int argc, char *argv[])
 {
 	enum POPparce_return_code exit_code;
-	log_f("1");
-	void POP_opts_init();
-	log_f("2");
+	POP_opts_init();
 
-	log_f("3");
 	bool opt_help = false;			/* -h, --help		*/
 	POP_new_bool_opt(&opt_help, 'h', "help");
-	log_f("4");
 
 	char* opt_name = NULL;		/* -m --message		*/
 	POP_new_str_opt(&opt_name, '\0', "name");
