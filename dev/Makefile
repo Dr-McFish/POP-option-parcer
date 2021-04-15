@@ -10,7 +10,7 @@ MYLIB = libpop.a
 LIB_OUT = ${BUILD_DIR}/lib/${MYLIB}
 LIB_HEADER = POP.h
 
-SRCS = eq_str.c find_next_prime.c hashmap.c linked_list.c
+SRCS = bools.c eq_str.c find_next_prime.c hashmap.c linked_list.c POP.c
 OBJS = ${SRCS:.c=.o}
 
 
@@ -21,11 +21,11 @@ clean:
 	rm -rf *.o
 	rm -f *.exe
 
-test_hmap: hashmap.o tests/hashmap_test.c ${LIB_OUT}
+test_hmap: tests/hashmap_test.c ${LIB_OUT}
 	${CC} ${CFLAGS} tests/hashmap_test.c hashmap.o -o test_hashmap.exe -L ./build/lib/ -lpop
 	./test_hashmap.exe
 
-test_prime: find_next_prime.o tests/test_prime.c ${LIB_OUT}
+test_prime: tests/test_prime.c ${LIB_OUT}
 	${CC} ${CFLAGS} tests/test_prime.c -o test_prime.exe -L ./build/lib/ -lpop
 	./test_prime.exe
 

@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include "generic_option.h"
 
-typedef int64_t VALUE_TYPE;
+typedef option_ptr_t VALUE_TYPE;
 typedef struct	key_value_pair
 {
 	const char* key;

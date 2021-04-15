@@ -17,7 +17,8 @@ bool compare_keys(const key_value_t* a, const key_value_t* b){
 }
 void print_kv_pair(const key_value_t* pair)
 {
-	printf("[\"%s\" : %I64u]", pair->key, pair->value);
+	//printf("[\"%s\" : %I64u]", pair->key, pair->value);
+	printf("[\"%s\" : option_ptr_t]", pair->key);
 }
 
 #define PRIME_NUM_A 4297
@@ -75,7 +76,7 @@ node_t** _lookup_adr(const hashmap_t* map, const char* key)
 	return(rt);
 }
 
-const VALUE_TYPE* lookup(const hashmap_t* map, const char* key){
+VALUE_TYPE* lookup(const hashmap_t* map, const char* key){
 	key_value_t kv; kv.key = key;
 	node_t* rt = find_node(map->list[strhash(key, map->list_len)], &kv, &compare_keys);
 	if (rt)
