@@ -11,8 +11,11 @@ int main(int argc, char *argv[])
 	bool opt_help = false;			/* -h, --help		*/
 	POP_new_bool_opt(&opt_help, 'h', "help");
 
-	char* opt_name = NULL;		/* -m --message		*/
+	char* opt_name = NULL;		/* --name 				*/
 	POP_new_str_opt(&opt_name, '\0', "name");
+
+	int opt_age = -1;	/* -n				*/
+	POP_new_int_opt(&opt_age, '\0', "age");
 
 	char* opt_message = NULL;		/* -m --message		*/
 	POP_new_str_opt(&opt_message, 'm', "message");
@@ -44,18 +47,20 @@ int main(int argc, char *argv[])
 	printf("PROFILE:\n");
 	if(opt_name)
 		printf("Your name is %s\n", opt_name);
+	if (opt_age != -1) /* TODO */
+		printf("Your favorite number is %d\n", opt_age);
 	if(opt_message)
 		printf("Your message to the world is: \"%s\"\n", opt_message);
+	if (opt_favorite_number != -1) /* TODO */
+		printf("Your favorite number is %d\n", opt_favorite_number);
 	if (opt_hates_onions)
 		printf("You hate onions.\n");
 	else if (opt_loves_onions)
 		printf("You LOVE onions.\n");
-	if (opt_favorite_number != -1) /* TODO */
-		printf("Your favorite number is %d\n", opt_favorite_number);
 	argc = POP_get_argc();
 	argv = POP_get_argv();
 	if (argc > 1){
-		printf("Your favorite thigs are:\n");
+		printf("Your favorite things are:\n");
 		for (int i = 1; i < argc; i++) {
 			printf("  %2d. %s\n", i, argv[i]);
 		}

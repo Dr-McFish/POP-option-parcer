@@ -2,9 +2,6 @@
 #include "options.h"
 #include "stdlib.h"
 
-#include "stdio.h"
-void log_f(const char* str) {	printf("%s\n", str); }
-
 POP_options_t* g_POP_options;
 int		g_POPargc;
 char**	g_POPargv;
@@ -34,7 +31,7 @@ void POP_opts_cleanup(){
 	free(g_POPargv);
 }
 
-int letter_to_index(char c)
+int POP_letter_to_index(char c)
 {
 	if ('a' <= c && c <= 'z')
 		return (c - 'a');
@@ -44,7 +41,7 @@ int letter_to_index(char c)
 		return -1;
 }
 
-void add_POP_arg(char* arg) {
+void POP_add_arg(char* arg) {
 	if(g_POPargc == (g_POParg_array_size - 1)) {
 		g_POParg_array_size *= 2;
 		realloc(g_POPargv, g_POParg_array_size);
@@ -59,8 +56,8 @@ void POP_new_bool_opt(bool* output_target, char short_name, char* long_name)
 		template.opt_ptr = output_target;
 		template.type = BOOL_OPT;
 		template.was_used = false;
-	if (letter_to_index(short_name) != -1)
-		g_POP_options->short_names[letter_to_index(short_name)] = template;
+	if (POP_letter_to_index(short_name) != -1)
+		g_POP_options->short_names[POP_letter_to_index(short_name)] = template;
 	if (long_name)
 		add_entry(&g_POP_options->long_names, long_name, template);
 }
@@ -72,8 +69,8 @@ void POP_new_str_opt(char** output_target,	char short_name, char* long_name)
 		template.opt_ptr = output_target;
 		template.type = STRING_OPT;
 		template.was_used = false;
-	if (letter_to_index(short_name) != -1)
-		g_POP_options->short_names[letter_to_index(short_name)] = template;
+	if (POP_letter_to_index(short_name) != -1)
+		g_POP_options->short_names[POP_letter_to_index(short_name)] = template;
 	if (long_name)
 		add_entry(&g_POP_options->long_names, long_name, template);
 }
@@ -84,15 +81,15 @@ void POP_new_int_opt(int* output_target,	char short_name, char* long_name)
 		template.opt_ptr = output_target;
 		template.type = INT_OPT;
 		template.was_used = false;
-	if (letter_to_index(short_name) != -1)
-		g_POP_options->short_names[letter_to_index(short_name)] = template;
+	if (POP_letter_to_index(short_name) != -1)
+		g_POP_options->short_names[POP_letter_to_index(short_name)] = template;
 	if (long_name)
 		add_entry(&g_POP_options->long_names, long_name, template);
 }
 
 
 
-bool is_decimal_number(const char* str){
+bool POP_is_decimal_number(const char* str){
 	for (int i = 0;str[i] != '\0'; i++)
 		if ( !('0' <= str[i] && str[i] <= '9') )
 			return false;
@@ -114,7 +111,7 @@ enum POPparce_return_code POP_handle_opt(option_ptr_t* target_opt, char* next_ar
 			if (target_opt->type == STRING_OPT)
 				*(char**)target_opt->opt_ptr = next_arg;
 			else /* INT OPT */ {
-				if(!is_decimal_number(next_arg))
+				if(!POP_is_decimal_number(next_arg))
 					return PARCE_FAIL_NOT_A_NUMBER;
 				*(int*)target_opt->opt_ptr = atoi(next_arg);
 			}
@@ -132,7 +129,7 @@ enum POPparce_return_code POP_parce(int argc, char** argv)
 	option_ptr_t* target_opt;
 	enum POPparce_return_code parce_code;
 
-	add_POP_arg(argv[0]);
+	POP_add_arg(argv[0]);
 	int skip_next_arg_opt = 0;
 	for (int i = 1; i < argc; i += skip_next_arg_opt + 1)
 	{
@@ -151,8 +148,7 @@ enum POPparce_return_code POP_parce(int argc, char** argv)
 				/* short options */
 				int j = 1;
 				while (argv[i][j] != '\0') {
-					target_opt = g_POP_options->short_names + letter_to_index(argv[i][j]);
-					//printf("$: %c\n", argv[i][j]);
+					target_opt = g_POP_options->short_names + POP_letter_to_index(argv[i][j]);
 					skip_next_arg_opt = (	target_opt->type == STRING_OPT
 										||	target_opt->type == INT_OPT
 										||  skip_next_arg_opt == 1) ? 1 : 0;
@@ -163,7 +159,7 @@ enum POPparce_return_code POP_parce(int argc, char** argv)
 			}
 		} else {
 			/* argument */
-			add_POP_arg(argv[i]);
+			POP_add_arg(argv[i]);
 		}
 	}
 	return PARCE_SUCCSEES;

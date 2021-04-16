@@ -17,7 +17,6 @@ bool compare_keys(const key_value_t* a, const key_value_t* b){
 }
 void print_kv_pair(const key_value_t* pair)
 {
-	//printf("[\"%s\" : %I64u]", pair->key, pair->value);
 	printf("[\"%s\" : option_ptr_t]", pair->key);
 }
 
@@ -131,7 +130,6 @@ void rehash(hashmap_t* map)
 		new_size = map->list_len / 2;
 	} else
 		return;
-	printf("Exeded load: %f\n", load);
 	hashmap_t new_map;
 	init_hashmap(&new_map, new_size);
 	if (new_map.list == NULL) return;

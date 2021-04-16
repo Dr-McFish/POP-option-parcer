@@ -10,7 +10,7 @@ MYLIB = libpop.a
 LIB_OUT = ${BUILD_DIR}/lib/${MYLIB}
 LIB_HEADER = POP.h
 
-SRCS = bools.c eq_str.c find_next_prime.c hashmap.c linked_list.c POP.c
+SRCS = eq_str.c prime.c hashmap.c linked_list.c POP.c
 OBJS = ${SRCS:.c=.o}
 
 
@@ -29,8 +29,8 @@ test_prime: tests/test_prime.c ${LIB_OUT}
 	${CC} ${CFLAGS} tests/test_prime.c -o test_prime.exe -L ./build/lib/ -lpop
 	./test_prime.exe
 
-./build/include/${LIB_HEADER}:
-	cp ./include/${LIB_HEADER} ./build/include
+./build/include/${LIB_HEADER}: ./include/${LIB_HEADER}
+	cp ./include/${LIB_HEADER} ./build/include/POP/${LIB_HEADER}
 
 ${LIB_OUT}: ${OBJS}
 	ar rc ${LIB_OUT} ${OBJS}

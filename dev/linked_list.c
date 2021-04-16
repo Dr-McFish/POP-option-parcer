@@ -63,7 +63,6 @@ void nuke_tail(node_t** head) {
 	while (temp_ptr)
 	{
 		temp_ptr2= temp_ptr->next;
-		//printf("node %d destroyed\n", temp_ptr->value);
 		free(temp_ptr);
 		temp_ptr = temp_ptr2;
 	}
