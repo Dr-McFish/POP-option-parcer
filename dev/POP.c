@@ -2,8 +2,8 @@
 #include "options.h"
 #include "stdlib.h"
 
-//#include "stdio.h"
-//void log_f(const char* str) {	printf("%s\n", str); }
+#include "stdio.h"
+void log_f(const char* str) {	printf("%s\n", str); }
 
 POP_options_t* g_POP_options;
 int		g_POPargc;
@@ -39,7 +39,7 @@ int letter_to_index(char c)
 	if ('a' <= c && c <= 'z')
 		return (c - 'a');
 	if ('A' <= c && c <= 'Z')
-		return (c - 'A');
+		return ((c - 'A') + ('z' - 'a'));
 	else
 		return -1;
 }
@@ -59,11 +59,10 @@ void POP_new_bool_opt(bool* output_target, char short_name, char* long_name)
 		template.opt_ptr = output_target;
 		template.type = BOOL_OPT;
 		template.was_used = false;
-	if (letter_to_index(short_name) != -1){
+	if (letter_to_index(short_name) != -1)
 		g_POP_options->short_names[letter_to_index(short_name)] = template;
-	}if (long_name){
+	if (long_name)
 		add_entry(&g_POP_options->long_names, long_name, template);
-	}
 }
 
 
@@ -143,6 +142,8 @@ enum POPparce_return_code POP_parce(int argc, char** argv)
 			if (argv[i][1] == '-') {
 				/* long option */
 				target_opt = lookup(&g_POP_options->long_names, argv[i] + 2);
+				skip_next_arg_opt = (	target_opt->type == STRING_OPT
+									||	target_opt->type == INT_OPT) ? 1 : 0;
 				if(target_opt == NULL) return PARCE_FAIL_INVALID_OPT; /* TODO: add error logging system */
 				parce_code = POP_handle_opt(target_opt, ( ((i+1) < argc ) ? argv[i + 1] : NULL));
 				if (parce_code != PARCE_SUCCSEES) return parce_code;
@@ -150,10 +151,11 @@ enum POPparce_return_code POP_parce(int argc, char** argv)
 				/* short options */
 				int j = 1;
 				while (argv[i][j] != '\0') {
-					target_opt = &g_POP_options->short_names[j];
-					int skip_next_arg_opt = (	target_opt->type == STRING_OPT
-											||	target_opt->type == INT_OPT
-											||  skip_next_arg_opt == 1) ? 1 : 0;
+					target_opt = g_POP_options->short_names + letter_to_index(argv[i][j]);
+					//printf("$: %c\n", argv[i][j]);
+					skip_next_arg_opt = (	target_opt->type == STRING_OPT
+										||	target_opt->type == INT_OPT
+										||  skip_next_arg_opt == 1) ? 1 : 0;
 					parce_code = POP_handle_opt(target_opt, ( ((i+1) < argc ) ? argv[i + 1] : NULL));
 					if (parce_code != PARCE_SUCCSEES) return parce_code;
 					j += 1;
