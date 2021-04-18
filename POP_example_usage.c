@@ -55,8 +55,11 @@ int main(int argc, char *argv[])
 		printf("\t--message [MESSAGE],\tAdd your message to your profile\n\t-m [MESSAGE]\n\n");
 		printf("\t-O, --love-onions\tIndicate weather you love or hate onions.\n");
 		printf("\t-o, --hate-onions\tThere is no middle ground.\n\n");
-		printf("\t-c, --socks\t\ttIndicate that you are wearing socks\n\n");
-		printf("\t-s, --shoes\t\ttIndicate that you are wearing shoes\n\n");
+		printf("\t-c, --socks\t\tIndicate that you are wearing socks\n\n");
+		printf("\t-s, --shoes\t\tIndicate that you are wearing shoes\n\n");
+		printf("EXAMPLE USAGE:\n\n");
+		printf("\t$ %s --name Bob apples\n", argv[0]);
+		printf("\tPROFILE: \n\t\tYour name is Bob\n\t\tYour favorite fruit are:\n\t\t1. aplles\n");
 		return 0;
 	}
 	
