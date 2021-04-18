@@ -23,15 +23,13 @@ Learn more about how this is done in the documentation(Coming soon).
 
 If the library is compiled correctly for your OS(the `build` folder contains the pre-compiled library for Windows ready to go), then you can try the demo, and look at the code in `POP_example_usage.c`.
 
-To run the demo type this command in the root directory of this repo:
+To run the demo type this command in the root directory of this repo (You will gcc and make installed):
 
 	make demo
 
 It compiles a small demo program that creates and prints a your profile based on the options. Once you have done this, you can try it personalize this profile to gauge how these options work, type:
 
 	./demo --help
-
-
 
 ## Compiling
 
