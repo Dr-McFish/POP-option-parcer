@@ -2,8 +2,8 @@
 CC = gcc
 CCX = g++
 INCLUDE = -I "./include"
-CXXFLAGS = -Wall -g ${INCLUDE}
-CFLAGS = -Wall -g ${INCLUDE}
+CXXFLAGS = -Wall ${INCLUDE}
+CFLAGS = -Wall ${INCLUDE}
 
 BUILD_DIR = ./build
 MYLIB = libpop.a
@@ -13,7 +13,11 @@ LIB_HEADER = POP.h
 SRCS = eq_str.c prime.c hashmap.c linked_list.c POP.c
 OBJS = ${SRCS:.c=.o}
 
+release: clean release_set_flags all
+	cp -rf build ../
+	make clean
 
+debug: debug_set_flags all
 
 all: ${LIB_OUT} ./build/include/${LIB_HEADER}
 
@@ -35,4 +39,10 @@ test_prime: tests/test_prime.c ${LIB_OUT}
 ${LIB_OUT}: ${OBJS}
 	ar rc ${LIB_OUT} ${OBJS}
 
-.PHONY: all clean test_hashmap
+debug_set_flags:
+	$(eval CFLAGS += -g)
+
+release_set_flags:
+	$(eval CFLAGS += -O3)
+
+.PHONY: release debug all clean test_hashmap debug_set_flags release_set_flags
