@@ -1,7 +1,5 @@
 #include <stdio.h>
-#include "POP.h"
-
-//void log_f(const char* str);
+#include "POP/POP.h"
 
 int main(int argc, char *argv[])
 {
@@ -28,6 +26,12 @@ int main(int argc, char *argv[])
 	POP_new_bool_opt(&opt_loves_onions, 'O', "love-onions");
 	POP_new_bool_opt(&opt_hates_onions, 'o', "hate-onions");
 
+	bool opt_shoes = false;		/* -s */
+	bool opt_socks = false; 	/* -c */
+	POP_new_bool_opt(&opt_shoes, 's', "shoes");
+	POP_new_bool_opt(&opt_socks, 'c', "socks");
+
+
 	exit_code = POP_parce(argc, argv);
 	if (exit_code != PARCE_SUCCSEES) {
 		return -1;
@@ -36,18 +40,31 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "Incompatible options: --love-onions, --hate-onions\n");
 		return -1;
 	}
+	argc = POP_get_argc();
+	argv = POP_get_argv();
 
 	if (opt_help){
-		printf("help message\n"); /* TODO */
-		printf("USAGE: profile [OPTIONS] [FAVORITE THINGS...]\n");
+		/* DISCLAIMER: this library doest provide any elegant way to display	*\
+		\* a help message, this is just for demonstrative purposes				*/
+		printf("SYNOPSIS:\n\tprofile [OPTIONS] [FAVORITE FRUIT...]\n\n");
+		printf("DESCRIPTION:\n\n");
+		printf("\tGenerates a profile based on the OPTIONS and your list of favorite fruit\n\n");
+		printf("\t-h, --help\t\tDisplay this help message and quit\n\n");
+		printf("\t--name [NAME]\t\tAdd your name to your profile\n\n");
+		printf("\t--age [AGE]\t\tAdd your age to your profile\n\n");
+		printf("\t--message [MESSAGE],\tAdd your message to your profile\n\t-m [MESSAGE]\n\n");
+		printf("\t-O, --love-onions\tIndicate weather you love or hate onions.\n");
+		printf("\t-o, --hate-onions\tThere is no middle ground.\n\n");
+		printf("\t-c, --socks\t\ttIndicate that you are wearing socks\n\n");
+		printf("\t-s, --shoes\t\ttIndicate that you are wearing shoes\n\n");
 		return 0;
 	}
 	
-	printf("PROFILE:\n");
+	printf("\nPROFILE:\n\n");
 	if(opt_name)
 		printf("Your name is %s\n", opt_name);
 	if (opt_age != -1)
-		printf("Your favorite number is %d\n", opt_age);
+		printf("You are %d years old\n", opt_age);
 	if(opt_message)
 		printf("Your message to the world is: \"%s\"\n", opt_message);
 	if (opt_favorite_number != -1)
@@ -56,14 +73,15 @@ int main(int argc, char *argv[])
 		printf("You hate onions.\n");
 	else if (opt_loves_onions)
 		printf("You LOVE onions.\n");
-	argc = POP_get_argc();
-	argv = POP_get_argv();
+	if(opt_shoes)
+		printf("You are wearing shoes\n");
+	if(opt_socks)
+		printf("You are wearing socks\n");
 	if (argc > 1){
-		printf("Your favorite things are:\n");
+		printf("Your favorite fruit are:\n");
 		for (int i = 1; i < argc; i++) {
 			printf("  %2d. %s\n", i, argv[i]);
 		}
-		
 	}
 	
 	void POP_opts_cleanup();
