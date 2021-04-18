@@ -6,7 +6,7 @@
 
 	1.1 Compilation
 
-	1.2 Eh
+	1.2 Files in the library
 
  2. [Options Explained](2.Options_Explained)
 

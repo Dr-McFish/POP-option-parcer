@@ -60,3 +60,5 @@ Run this command to compile:
 
 The all the necessary library files will be outputted to `POP-option-parser/build/`.
 Done!
+
+**NOTE:** This will produce a library that links statically. Instructions for compiling a dynamically linked library are not provided(at least for now) because it is OS dependent. However they shouldn't be different from how you would normally do this.
