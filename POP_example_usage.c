@@ -8,19 +8,19 @@ int main(int argc, char *argv[])
 	enum POPparce_return_code exit_code;
 	POP_opts_init();
 
-	bool opt_help = false;			/* -h, --help		*/
+	bool opt_help = false;		/* -h, --help		*/
 	POP_new_bool_opt(&opt_help, 'h', "help");
 
-	char* opt_name = NULL;		/* --name 				*/
+	char* opt_name = NULL;		/* --name 			*/
 	POP_new_str_opt(&opt_name, '\0', "name");
 
-	int opt_age = -1;	/* -n				*/
+	int opt_age = -1;			/* -n				*/
 	POP_new_int_opt(&opt_age, '\0', "age");
 
-	char* opt_message = NULL;		/* -m --message		*/
+	char* opt_message = NULL;	/* -m --message		*/
 	POP_new_str_opt(&opt_message, 'm', "message");
 
-	int opt_favorite_number = -1;	/* -n				*/
+	int opt_favorite_number = -1;/* -n				*/
 	POP_new_int_opt(&opt_favorite_number, 'n', NULL);
 
 	bool opt_loves_onions = false;	/* --love-onions -O	*/
@@ -30,7 +30,6 @@ int main(int argc, char *argv[])
 
 	exit_code = POP_parce(argc, argv);
 	if (exit_code != PARCE_SUCCSEES) {
-		fprintf(stderr, "Parce Failed, error code: %d\n", exit_code); /* TODO */
 		return -1;
 	}
 	if(opt_loves_onions && opt_hates_onions){
@@ -47,11 +46,11 @@ int main(int argc, char *argv[])
 	printf("PROFILE:\n");
 	if(opt_name)
 		printf("Your name is %s\n", opt_name);
-	if (opt_age != -1) /* TODO */
+	if (opt_age != -1)
 		printf("Your favorite number is %d\n", opt_age);
 	if(opt_message)
 		printf("Your message to the world is: \"%s\"\n", opt_message);
-	if (opt_favorite_number != -1) /* TODO */
+	if (opt_favorite_number != -1)
 		printf("Your favorite number is %d\n", opt_favorite_number);
 	if (opt_hates_onions)
 		printf("You hate onions.\n");
