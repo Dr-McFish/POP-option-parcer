@@ -22,6 +22,5 @@ enum POPparce_return_code{	PARCE_SUCCSEES, PARCE_FAIL, PARCE_FAIL_INVALID_OPT,
 							PARCE_FAIL_DUPLICATE_OPTION};
 enum POPparce_return_code POP_parce(int argc, char** argv);
 
-char* POP_get_error();
 
 #endif

@@ -1,5 +1,5 @@
-#include "POP.h"
 #include <stdio.h>
+#include "POP.h"
 
 //void log_f(const char* str);
 
@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 
 	exit_code = POP_parce(argc, argv);
 	if (exit_code != PARCE_SUCCSEES) {
-		fprintf(stderr, "Parce error, code: %d\n", exit_code); /* TODO */
+		fprintf(stderr, "Parce Failed, error code: %d\n", exit_code); /* TODO */
 		return -1;
 	}
 	if(opt_loves_onions && opt_hates_onions){
