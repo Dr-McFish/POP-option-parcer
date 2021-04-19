@@ -33,7 +33,7 @@ To run the demo type this command in the root directory of this repo (You will g
 
 It compiles a small demo program that creates and prints a your profile based on the options. Once you have done this, you can try it personalize this profile to gauge how these options work, type:
 
-	./demo --help
+	./demo.out --help
 
 ## Compiling
 
