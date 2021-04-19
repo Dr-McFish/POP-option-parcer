@@ -96,7 +96,7 @@ void POP_print_error(char* long_name, char short_name, enum POPparse_return_code
 {
 	switch (code)
 	{
-	case PARSE_SUCCSEES:
+	case PARSE_SUCCESSES:
 		break;
 	case PARSE_FAIL:
 		fprintf(stderr, "PARCE ERROR: Generic error\n");
@@ -155,7 +155,7 @@ enum POPparse_return_code POP_handle_opt(option_ptr_t* target_opt, char* next_ar
 		return PARSE_FAIL_DUPLICATE_OPTION;
 	else
 		target_opt->was_used = true;	
-	return PARSE_SUCCSEES;
+	return PARSE_SUCCESSES;
 }
 
 enum POPparse_return_code POP_parse(int argc, char** argv)
@@ -177,7 +177,7 @@ enum POPparse_return_code POP_parse(int argc, char** argv)
 									||	target_opt->type == INT_OPT) ? 1 : 0;
 				if(target_opt == NULL) return PARSE_FAIL_INVALID_OPT; /* TODO: add error logging system */
 				parce_code = POP_handle_opt(target_opt, ( ((i+1) < argc ) ? argv[i + 1] : NULL));
-				if (parce_code != PARSE_SUCCSEES){
+				if (parce_code != PARSE_SUCCESSES){
 					POP_print_error(argv[i], '\0', parce_code, argv[i + 1]);
 					return parce_code;
 				}
@@ -190,7 +190,7 @@ enum POPparse_return_code POP_parse(int argc, char** argv)
 										||	target_opt->type == INT_OPT
 										||  skip_next_arg_opt == 1) ? 1 : 0;
 					parce_code = POP_handle_opt(target_opt, ( ((i+1) < argc ) ? argv[i + 1] : NULL));
-					if (parce_code != PARSE_SUCCSEES) {
+					if (parce_code != PARSE_SUCCESSES) {
 						POP_print_error(NULL, argv[i][j], parce_code, argv[i + 1]);
 						return parce_code;
 					}
@@ -202,5 +202,5 @@ enum POPparse_return_code POP_parse(int argc, char** argv)
 			POP_add_arg(argv[i]);
 		}
 	}
-	return PARSE_SUCCSEES;
+	return PARSE_SUCCESSES;
 }

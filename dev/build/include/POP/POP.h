@@ -22,7 +22,7 @@ void POP_new_str_opt(char** output_target,	char short_name, char* long_name);
 /* NULL and '\\0' are to be used if the corresponding name is not desired */
 void POP_new_int_opt(int* output_target,	char short_name, char* long_name);
 
-enum POPparse_return_code{	PARSE_SUCCSEES, PARSE_FAIL, PARSE_FAIL_INVALID_OPT,
+enum POPparse_return_code{	PARSE_SUCCESSES, PARSE_FAIL, PARSE_FAIL_INVALID_OPT,
 							PARSE_FAIL_MISSING_ARG, PARSE_FAIL_NOT_A_NUMBER,
 							PARSE_FAIL_DUPLICATE_OPTION};
 enum POPparse_return_code POP_parse(int argc, char** argv);
