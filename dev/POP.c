@@ -92,7 +92,7 @@ void POP_new_int_opt(int* output_target,	char short_name, char* long_name)
 		add_entry(&g_POP_options->long_names, long_name, template);
 }
 
-void POP_print_error(char* long_name, char short_name, enum POPparce_return_code code, char* next_arg)
+void POP_print_error(char* long_name, char short_name, enum POPparse_return_code code, char* next_arg)
 {
 	switch (code)
 	{
@@ -129,7 +129,7 @@ bool POP_is_decimal_number(const char* str){
 	return true;
 }
 
-enum POPparce_return_code POP_handle_opt(option_ptr_t* target_opt, char* next_arg)
+enum POPparse_return_code POP_handle_opt(option_ptr_t* target_opt, char* next_arg)
 {
 	switch (target_opt->type) {
 		case UNASIGED_OPT:
@@ -158,10 +158,10 @@ enum POPparce_return_code POP_handle_opt(option_ptr_t* target_opt, char* next_ar
 	return PARCE_SUCCSEES;
 }
 
-enum POPparce_return_code POP_parce(int argc, char** argv)
+enum POPparse_return_code POP_parse(int argc, char** argv)
 {
 	option_ptr_t* target_opt;
-	enum POPparce_return_code parce_code;
+	enum POPparse_return_code parce_code;
 
 	POP_add_arg(argv[0]);
 	int skip_next_arg_opt = 0;
