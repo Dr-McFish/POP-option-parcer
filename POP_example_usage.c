@@ -5,7 +5,6 @@ void print_help();
 
 int main(int argc, char *argv[])
 {
-
 	POP_opts_init();
 
 	bool opt_help = false;		/* -h, --help		*/

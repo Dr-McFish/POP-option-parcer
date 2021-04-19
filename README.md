@@ -19,6 +19,10 @@ If you ever used the command line you have encountered an option, for example ta
 
 Learn more about how this is done in the documentation(Coming soon).
 
+### But why?
+
+I am aware that this library is likely not the sharpest tool in the shed. I mostly created for fun and as an educational exercise to learn how to make a C library. It is also nice and simple, and will work for most basic purposes.
+
 ## Demo
 
 If the library is compiled correctly for your OS(the `build` folder contains the pre-compiled library for Windows ready to go), then you can try the demo, and look at the code in `POP_example_usage.c`.
