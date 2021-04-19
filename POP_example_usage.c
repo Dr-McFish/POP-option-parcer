@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
 	POP_new_bool_opt(&opt_socks, 'c', "socks");
 
 
-	if (POP_parse(argc, argv) != PARCE_SUCCSEES) {
+	if (POP_parse(argc, argv) != PARSE_SUCCSEES) {
 		return -1;
 	}
 	if(opt_loves_onions && opt_hates_onions){
