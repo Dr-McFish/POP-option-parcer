@@ -12,13 +12,15 @@
 
  3. [Basic Use](./3.Basic_Use)
 	
-	[3.1 General remarks](./Basic_Use/3.1_Setup.md)
+	3.1 [General remarks](./Basic_Use/3.1_Setup.md)
 
-	[3.2 Bool Options](./Basic_Use/3.2_Bool_Options.md)
+	3.2 [Bool Options](./Basic_Use/3.2_Bool_Options.md)
 
-	[3.3 String Options](./Basic_Use/3.3_String_Options.md)
+	3.3 [String Options](./Basic_Use/3.3_String_Options.md)
 
-	[3.4 Int Options](./Basic_Use/3.4_Int_Options.md)
+	3.4 [Int Options](./Basic_Use/3.4_Int_Options.md)
+
+	3.5 [Arguments](./Basic_Use/3.5_Arguments.md)
 
 ---
 

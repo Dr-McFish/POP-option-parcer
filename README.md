@@ -17,7 +17,7 @@ If you ever used the command line you have encountered an option, for example ta
 
 `--depth 1` and `--progress` are options for the git clone program. Likewise, POP enables you to create your own option for your own program in C.
 
-Learn more about how this is done in the documentation(Coming soon).
+Learn more about how this is done in the [documentation](./docs/README.md).
 
 ### But why?
 
