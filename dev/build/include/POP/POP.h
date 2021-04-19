@@ -1,6 +1,6 @@
 /*                      ~ POP Option Parser Library ~                 O    *\
 |*     POP.h                                                  \   \   o    *|
-|*     By: Dr McFish                                           />|° >°      *|
+|*     By: Dr McFish                                           />|° >°     *|
 |*     www.github.com/dr-mcfish                               /   /  bloop *|
 \*                                                                         */
 #ifndef POP_H
