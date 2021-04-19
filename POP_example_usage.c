@@ -92,6 +92,6 @@ void print_help()
 	printf("\t-c, --socks\t\tIndicate that you are wearing socks\n\n");
 	printf("\t-s, --shoes\t\tIndicate that you are wearing shoes\n\n");
 	printf("EXAMPLE USAGE:\n\n");
-	printf("\t$ %s --name Bob apples\n", argv[0]);
+	printf("\t$ ./demo --name Bob apples\n");
 	printf("\tPROFILE: \n\t\tYour name is Bob\n\t\tYour favorite fruit are:\n\t\t1. aplles\n");
 }
