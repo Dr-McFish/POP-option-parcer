@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
 		}
 	}
 	
-	void POP_opts_cleanup();
+	POP_opts_cleanup();
 	return 0;
 }
 
