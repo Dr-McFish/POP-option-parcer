@@ -14,7 +14,7 @@
 
  3. [Basic Use](./3.Basic_Use)
 	
-	3.1 [General remarks](./3.Basic_Use/3.1_Setup.md)
+	3.1 [Setup](./3.Basic_Use/3.1_Setup.md)
 
 	3.2 [Bool Options](./3.Basic_Use/3.2_Bool_Options.md)
 
@@ -28,4 +28,4 @@
 
 Previous	          | Next
 --------------------- | ---------------------------------------------------
-None                  | [Compiling the library](./1.Setup/1.1.1_Compilation.md)
+None                  | [Compiling the library](./1.Setup/1.1_Compiling_the_library.md)
