@@ -7,13 +7,14 @@ int main(int argc, char *argv[])
 {
 	POP_opts_init();
 
+	/* Create options */
 	bool opt_help = false;		/* -h, --help		*/
 	POP_new_bool_opt(&opt_help, 'h', "help");
 
 	char* opt_name = NULL;		/* --name 			*/
 	POP_new_str_opt(&opt_name, '\0', "name");
 
-	int opt_age = -1;			/* -n				*/
+	int opt_age = -1;			/* --age				*/
 	POP_new_int_opt(&opt_age, '\0', "age");
 
 	char* opt_message = NULL;	/* -m --message		*/
@@ -32,7 +33,7 @@ int main(int argc, char *argv[])
 	POP_new_bool_opt(&opt_shoes, 's', "shoes");
 	POP_new_bool_opt(&opt_socks, 'c', "socks");
 
-
+	/* Parsing and error handling */
 	if (POP_parse(argc, argv) != PARSE_SUCCESSES) {
 		return -1;
 	}
@@ -43,6 +44,8 @@ int main(int argc, char *argv[])
 	argc = POP_get_argc();
 	argv = POP_get_argv();
 
+
+	/* Prosses data */
 	if (opt_help){
 		print_help();
 		return 0;

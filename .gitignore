@@ -1,4 +1,6 @@
 .vscode
 *.o
 *.out
-*.exe
+*.exedev/build/include/POP/POP.h
+dev/build/lib/libpop.a
+workspace.code-workspace
