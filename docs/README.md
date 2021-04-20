@@ -10,6 +10,8 @@
 
  2. [Options](./2.Options)
 
+	2.1 [POP options](./2.Options/2.1_POP_options.md)
+
  3. [Basic Use](./3.Basic_Use)
 	
 	3.1 [General remarks](./3.Basic_Use/3.1_Setup.md)
