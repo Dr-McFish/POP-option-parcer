@@ -49,18 +49,18 @@ You will need to install:
 
 Clone this repository:
 ```
-$ git clone --depth 1 https://github.com/Dr-McFish/POP-option-parcer.git
+git clone --depth 1 https://github.com/Dr-McFish/POP-option-parcer.git
 ```
 Navigate to the correct directory:
 ```
-$ cd POP-option-parser/dev
+cd POP-option-parser/dev
 ```
 
 ### 3. Compile
 
 Run this command to compile:
 
-	$ make release.
+	make release.
 
 The all the necessary library files will be outputted to `POP-option-parser/build/`.
 Done!
